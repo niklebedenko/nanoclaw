@@ -258,7 +258,9 @@ export class TelegramChannel implements Channel {
       logger.info({ chatJid, senderName }, 'Telegram image processed');
     });
     this.bot.on('message:video', (ctx: any) => storeNonText(ctx, '[Video]'));
-    this.bot.on('message:voice', (ctx: any) => storeNonText(ctx, '[Voice message]'));
+    this.bot.on('message:voice', (ctx: any) =>
+      storeNonText(ctx, '[Voice message]'),
+    );
     this.bot.on('message:audio', (ctx: any) => storeNonText(ctx, '[Audio]'));
     this.bot.on('message:document', (ctx: any) => {
       const name = ctx.message.document?.file_name || 'file';
@@ -268,8 +270,12 @@ export class TelegramChannel implements Channel {
       const emoji = ctx.message.sticker?.emoji || '';
       storeNonText(ctx, `[Sticker ${emoji}]`);
     });
-    this.bot.on('message:location', (ctx: any) => storeNonText(ctx, '[Location]'));
-    this.bot.on('message:contact', (ctx: any) => storeNonText(ctx, '[Contact]'));
+    this.bot.on('message:location', (ctx: any) =>
+      storeNonText(ctx, '[Location]'),
+    );
+    this.bot.on('message:contact', (ctx: any) =>
+      storeNonText(ctx, '[Contact]'),
+    );
 
     // Handle errors gracefully
     this.bot.catch((err: any) => {
